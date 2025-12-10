@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: new-project
+  labels:
+    app: backend
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-deployment
+        image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
+        imagePullPolicy: Always
+        env:
+        - name: DATABASE_HOST
+          value: db
+        - name: DATABASE_NAME
+          value: "{{ .Values.postgres.environment.POSTGRES_DB }}"
+        - name: DATABASE_USER
+          value: "{{ .Values.postgres.environment.POSTGRES_USER }}"
+        - name: DATABASE_PASSWORD
+          value: "{{ .Values.postgres.environment.POSTGRES_PASSWORD }}"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: {{ .Values.backend.containerPort }}

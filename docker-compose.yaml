@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  # ---------------------------
+  # PostgreSQL Database
+  # ---------------------------
+  db:
+    image: postgres:15
+    container_name: devops_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tasks_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - devops_net
+
+  # ---------------------------
+  # Backend (FastAPI)
+  # ---------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: devops_backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/tasks_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - devops_net
+
+  # ---------------------------
+  # Frontend (React + Vite + Nginx)
+  # ---------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: devops_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - devops_net
+
+# ---------------------------
+# Volumes
+# ---------------------------
+volumes:
+  postgres_data:
+
+# ---------------------------
+# Network
+# ---------------------------
+networks:
+  devops_net:
+    driver: bridge

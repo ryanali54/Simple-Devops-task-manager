@@ -1,0 +1,23 @@
+frontend:
+  image:
+    repository: docker.io/ryan20ali/newproject-frontend
+    tag: latest
+    replicas: 2
+  containerPort: 80
+
+backend:
+  image:
+    repository: docker.io/ryan20ali/newproject-backend
+    tag: latest
+    replicas: 2
+  containerPort: 8000
+
+postgres:
+  image: postgres:15
+  pvcName: postgres-data-pvc
+  environment:
+    POSTGRES_DB: "tasks_db"
+    POSTGRES_NAME: "postgres"
+    POSTGRES_PASSWORD: "password"
+  containerPort: 5432
+  
