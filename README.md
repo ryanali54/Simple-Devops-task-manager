@@ -65,20 +65,32 @@ Make sure the following tools are installed:
 
 ## 🛠️ Setup & Deployment (Local)
 
-### 1️⃣ Clone the Repository
+### 1️ Clone the Repository
 
 ```bash
 git clone https://github.com/ryanali54/Simple-Devops-task-manager.git
 cd Simple-Devops-task-manager
+bash
+
+```
+```bash
 minikube start
+```
+```bash
 eval $(minikube docker-env)
+```
+```bash
 # Build backend image
 docker build -t devops-task-backend ./backend
-
+```
+```bash
 # Build frontend image
 docker build -t devops-task-frontend ./frontend
 helm install devops-task ./helm-chart
 minikube service devops-task-frontend
+```
+### File Structure
+```bash
 
 Simple-Devops-task-manager/
 │
