@@ -30,10 +30,11 @@ flowchart LR
     User --> Frontend
     Frontend --> Backend
 
-    subgraph Kubernetes (Minikube)
+    subgraph K8S["Kubernetes (Minikube)"]
         Frontend
         Backend
     end
+
 ```
 
 ---
