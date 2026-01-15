@@ -25,18 +25,16 @@ The project contains:
 ---
 
 ## 🧱 Architecture
+```mermaid
+flowchart LR
+    User --> Frontend
+    Frontend --> Backend
 
-User
-│
-▼
-Frontend Service (Kubernetes Service)
-│
-▼
-Backend Service (Kubernetes Service)
-│
-▼
-Application Logic / Storage (can be extended)
-
+    subgraph Kubernetes (Minikube)
+        Frontend
+        Backend
+    end
+```
 
 ---
 
