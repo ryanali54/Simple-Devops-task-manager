@@ -1,2 +1,91 @@
-# Simple-Devops-task-manager
-It is a simple devops task manager hosted on k8s on minikube.
+# Simple DevOps Task Manager
+
+A containerized **DevOps Task Manager application** deployed using **Docker** and **Kubernetes (Minikube)**.  
+This project is built to demonstrate **core DevOps concepts** such as containerization, orchestration, Helm-based deployments, and service communication.
+
+It is designed primarily as a **portfolio and learning project** rather than a production-grade application.
+
+---
+
+## 🚀 Project Overview
+
+The Simple DevOps Task Manager showcases an end-to-end DevOps workflow:
+
+- Application containerization using **Docker**
+- Multi-service orchestration using **Kubernetes**
+- Deployment management via **Helm charts**
+- Local Kubernetes cluster using **Minikube**
+
+The project contains:
+- A **frontend** service (UI)
+- A **backend** service (API)
+- Dockerfiles for each service
+- Helm chart for Kubernetes deployment
+
+---
+
+## 🧱 Architecture
+
+User
+│
+▼
+Frontend Service (Kubernetes Service)
+│
+▼
+Backend Service (Kubernetes Service)
+│
+▼
+Application Logic / Storage (can be extended)
+
+
+---
+
+## 🧰 Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Application API (lightweight service)
+- **Containerization:** Docker
+- **Orchestration:** Kubernetes (Minikube)
+- **Deployment Management:** Helm
+- **Infrastructure Concepts:** Pods, Services, ConfigMaps
+
+---
+
+## 📦 Prerequisites
+
+Make sure the following tools are installed:
+
+- Docker
+- Minikube
+- kubectl
+- Helm
+- Git
+
+---
+
+## 🛠️ Setup & Deployment (Local)
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/ryanali54/Simple-Devops-task-manager.git
+cd Simple-Devops-task-manager
+minikube start
+eval $(minikube docker-env)
+# Build backend image
+docker build -t devops-task-backend ./backend
+
+# Build frontend image
+docker build -t devops-task-frontend ./frontend
+helm install devops-task ./helm-chart
+minikube service devops-task-frontend
+
+Simple-Devops-task-manager/
+│
+├── backend/               # Backend service source code & Dockerfile
+├── frontend/              # Frontend UI source code & Dockerfile
+├── helm-chart/            # Helm chart for Kubernetes deployment
+├── docker-compose.yaml    # Local multi-container setup (optional)
+├── visualizer.yaml        # Optional Kubernetes visualizer
+└── README.md
+
